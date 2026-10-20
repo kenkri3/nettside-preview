@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nettside-preview – AIChat Norge</title>
+    <meta
+      name="description"
+      content="Skjermbilder av aichatnorge.no og aiprogram.no. Statisk preview på GitHub Pages."
+    />
+    <style>
+      :root {
+        --ink: #101828;
+        --soft: #475467;
+        --muted: #667085;
+        --paper: #f7f5ef;
+        --card: #ffffff;
+        --line: #e4ded2;
+        --teal: #0e7c66;
+        --orange: #c2410c;
+        --dark: #0b1f1c;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family:
+          ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+      }
+      .wrap {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      header.hero {
+        background:
+          radial-gradient(circle at 12% 10%, rgba(14, 124, 102, 0.12), transparent 38%),
+          radial-gradient(circle at 88% 0%, rgba(194, 65, 12, 0.1), transparent 34%),
+          var(--paper);
+        border-bottom: 1px solid var(--line);
+      }
+      .hero-inner {
+        padding: 64px 0 56px;
+        display: grid;
+        gap: 32px;
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+      }
+      .eyebrow {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--teal);
+      }
+      h1 {
+        font-size: clamp(36px, 5vw, 64px);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+        margin: 14px 0 18px;
+        max-width: 720px;
+      }
+      .lead {
+        font-size: 17px;
+        line-height: 1.65;
+        color: var(--soft);
+        max-width: 620px;
+        margin: 0;
+      }
+      .note {
+        margin-top: 22px;
+        padding: 12px 14px;
+        border: 1px solid #e8c9b8;
+        background: #fdf1e9;
+        color: #7c2d12;
+        border-radius: 10px;
+        font-size: 13px;
+        line-height: 1.5;
+        max-width: 620px;
+      }
+      .hero-shot {
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        box-shadow: 0 30px 70px -40px rgba(16, 24, 40, 0.5);
+        background: #fff;
+      }
+      .hero-shot img {
+        display: block;
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+        object-position: top center;
+      }
+      nav.tabs {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(247, 245, 239, 0.92);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+      }
+      .tabs-inner {
+        display: flex;
+        gap: 8px;
+        padding: 12px 0;
+        flex-wrap: wrap;
+      }
+      .tabs a {
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 650;
+        padding: 9px 14px;
+        border: 1px solid var(--line);
+        background: #fff;
+        border-radius: 999px;
+      }
+      .tabs a:hover {
+        border-color: #b9b2a5;
+      }
+      section.project {
+        padding: 64px 0 24px;
+      }
+      .project-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
+      }
+      .project-head h2 {
+        font-size: clamp(30px, 4vw, 46px);
+        letter-spacing: -0.03em;
+        margin: 8px 0 8px;
+      }
+      .project-head p {
+        margin: 0;
+        color: var(--soft);
+        max-width: 640px;
+        line-height: 1.6;
+        font-size: 15px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 650;
+        padding: 10px 15px;
+        border-radius: 10px;
+        background: var(--ink);
+        color: #fff;
+        white-space: nowrap;
+      }
+      .btn.light {
+        background: #fff;
+        color: var(--ink);
+        border: 1px solid var(--line);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .shot-desktop {
+        height: 430px;
+        overflow: hidden;
+        position: relative;
+        background: #f4f1ea;
+      }
+      .shot-desktop img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: top center;
+        height: auto;
+      }
+      .shot-desktop::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 80px;
+        background: linear-gradient(transparent, var(--card));
+        pointer-events: none;
+      }
+      .card-body {
+        padding: 16px 18px 18px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+      .card h3 {
+        margin: 0 0 4px;
+        font-size: 17px;
+        letter-spacing: -0.01em;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .phone {
+        width: 92px;
+        flex: 0 0 92px;
+        border: 3px solid #1f2937;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        height: 180px;
+      }
+      .phone img {
+        width: 100%;
+        display: block;
+      }
+      .links {
+        display: flex;
+        gap: 12px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+      .links a {
+        font-size: 12px;
+        font-weight: 650;
+        color: var(--teal);
+        text-decoration: none;
+      }
+      .links a:hover {
+        text-decoration: underline;
+      }
+      .aiprogram .links a {
+        color: var(--orange);
+      }
+      .divider {
+        height: 1px;
+        background: var(--line);
+        margin: 48px 0 0;
+      }
+      footer {
+        margin-top: 56px;
+        border-top: 1px solid var(--line);
+        padding: 28px 0 48px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.6;
+      }
+      footer strong {
+        color: var(--ink);
+      }
+      @media (max-width: 900px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+        }
+        .hero-shot img {
+          height: 300px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .shot-desktop {
+          height: 340px;
+        }
+      }
+      @media (max-width: 520px) {
+        .hero-inner {
+          padding: 44px 0 36px;
+        }
+        .phone {
+          display: none;
+        }
+        .shot-desktop {
+          height: 260px;
+        }
+        section.project {
+          padding-top: 44px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero">
+      <div class="wrap hero-inner">
+        <div>
+          <p class="eyebrow">Nettside-preview · AIChat Norge AS</p>
+          <h1>To sider. To produkter. Én portefølje.</h1>
+          <p class="lead">
+            Skjermbilder fra de ferdige nettsidene <strong>aichatnorge.no</strong> og
+            <strong>aiprogram.no</strong> – markedssider, demo, priser, AI-analyse, kundeportal og
+            coach.
+          </p>
+          <p class="note">
+            Dette er en statisk preview på GitHub Pages. GitHub Pages kan ikke kjøre Next.js,
+            PostgreSQL, innlogging eller API-er. De faktiske appene deployes på Railway fra
+            repoene under. Skjermbildene er tatt fra lokal produksjonsbygg.
+          </p>
+        </div>
+        <div class="hero-shot">
+          <img src="images/aiprogram-hjem-desktop.jpg" alt="Forsiden til aiprogram.no" />
+        </div>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Snarveier">
+      <div class="wrap tabs-inner">
+        <a href="#aichat">AIChat Norge – AI-Frontdesken</a>
+        <a href="#aiprogram">AIProgram</a>
+        <a href="https://github.com/kenkri3/aichatnorge" target="_blank" rel="noreferrer">Repo AIChat</a>
+        <a href="https://github.com/kenkri3/aiprogram" target="_blank" rel="noreferrer">Repo AIProgram</a>
+      </div>
+    </nav>
+
+    <main class="wrap">
+      <section class="project" id="aichat">
+        <div class="project-head">
+          <div>
+            <p class="eyebrow">aichatnorge.no</p>
+            <h2>AI-Frontdesken</h2>
+            <p>
+              AI-resepsjon for norske bedrifter: svarer fra eget innhold, booker møter, fanger leads
+              og slipper et menneske til. Priser: 990 / 1 990 / 3 490 kr per måned.
+            </p>
+          </div>
+          <a class="btn" href="https://github.com/kenkri3/aichatnorge" target="_blank" rel="noreferrer">
+            Se koden →
+          </a>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="shot-desktop">
+              <img src="images/aichat-hjem-desktop.jpg" alt="AIChat Norge forsiden" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>Forsiden</h3>
+                <p>Hero, problem, funksjoner, bransjer, priser og FAQ.</p>
+                <div class="links">
+                  <a href="images/aichat-hjem-desktop.jpg" target="_blank">Åpne hele bildet</a>
+                  <a href="images/aichat-hjem-mobil.jpg" target="_blank">Mobil</a>
+                </div>
+              </div>
+              <div class="phone"><img src="images/aichat-hjem-mobil.jpg" alt="AIChat mobil" loading="lazy" /></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="shot-desktop">
+              <img src="images/aichat-demo-desktop.jpg" alt="Live demo av AI-Frontdesken" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>Live demo</h3>
+                <p>Tre personas, ekte chat, booking og «vet ikke»-fallback.</p>
+                <div class="links">
+                  <a href="images/aichat-demo-desktop.jpg" target="_blank">Åpne hele bildet</a>
+                  <a href="images/aichat-demo-mobil.jpg" target="_blank">Mobil</a>
+                </div>
+              </div>
+              <div class="phone"><img src="images/aichat-demo-mobil.jpg" alt="Demo mobil" loading="lazy" /></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="shot-desktop">
+              <img src="images/aichat-priser-desktop.jpg" alt="Priser for AI-Frontdesken" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>Priser</h3>
+                <p>API-bruk i stedet for samtaler, årsavtale og tydelig overforbruk.</p>
+                <div class="links">
+                  <a href="images/aichat-priser-desktop.jpg" target="_blank">Åpne hele bildet</a>
+                  <a href="images/aichat-priser-mobil.jpg" target="_blank">Mobil</a>
+                </div>
+              </div>
+              <div class="phone"><img src="images/aichat-priser-mobil.jpg" alt="Priser mobil" loading="lazy" /></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="shot-desktop">
+              <img src="images/aichat-dashbord-desktop.jpg" alt="Dashbordet i AI-Frontdesken" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>Kundeapp</h3>
+                <p>Samtaler, leads, kunnskap, widget, booking og abonnement.</p>
+                <div class="links">
+                  <a href="images/aichat-dashbord-desktop.jpg" target="_blank">Åpne hele bildet</a>
+                  <a href="images/aichat-dashbord-mobil.jpg" target="_blank">Mobil</a>
+                </div>
+              </div>
+              <div class="phone"><img src="images/aichat-dashbord-mobil.jpg" alt="Dashbord mobil" loading="lazy" /></div>
+            </div>
+          </article>
+        </div>
+        <div class="divider"></div>
+      </section>
+
+      <section class="project aiprogram" id="aiprogram">
+        <div class="project-head">
+          <div>
+            <p class="eyebrow">aiprogram.no</p>
+            <h2>AIProgram</h2>
+            <p>
+              Seksukers gjennomføringsprogram: AI-analyse, 24 leksjoner, maler, AI-coach, live-økter
+              og sertifikat. Priser: 4 900 / 14 900 / 29 900 kr engangs.
+            </p>
+          </div>
+          <a class="btn" href="https://github.com/kenkri3/aiprogram" target="_blank" rel="noreferrer">
+            Se koden →
+          </a>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="shot-desktop">
+              <img src="images/aiprogram-hjem-desktop.jpg" alt="Forsiden til aiprogram.no" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>Forsiden</h3>
+                <p>Editorial design, programmet, bransjer, analyse og priser.</p>
+                <div class="links">
+                  <a href="images/aiprogram-hjem-desktop.jpg" target="_blank">Åpne hele bildet</a>
+                  <a href="images/aiprogram-hjem-mobil.jpg" target="_blank">Mobil</a>
+                </div>
+              </div>
+              <div class="phone"><img src="images/aiprogram-hjem-mobil.jpg" alt="AIProgram mobil" loading="lazy" /></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="shot-desktop">
+              <img src="images/aiprogram-programmet-desktop.jpg" alt="Programmet" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>Programmet</h3>
+                <p>Seks moduler, 24 leksjoner og tydelig ukesrytme.</p>
+                <div class="links">
+                  <a href="images/aiprogram-programmet-desktop.jpg" target="_blank">Åpne hele bildet</a>
+                  <a href="images/aiprogram-programmet-mobil.jpg" target="_blank">Mobil</a>
+                </div>
+              </div>
+              <div class="phone"><img src="images/aiprogram-programmet-mobil.jpg" alt="Programmet mobil" loading="lazy" /></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="shot-desktop">
+              <img src="images/aiprogram-analyse-desktop.jpg" alt="AI-analysen" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>AI-analysen</h3>
+                <p>18 spørsmål, score, modenhetsnivå og tre tiltak.</p>
+                <div class="links">
+                  <a href="images/aiprogram-analyse-desktop.jpg" target="_blank">Åpne hele bildet</a>
+                  <a href="images/aiprogram-analyse-mobil.jpg" target="_blank">Mobil</a>
+                </div>
+              </div>
+              <div class="phone"><img src="images/aiprogram-analyse-mobil.jpg" alt="Analyse mobil" loading="lazy" /></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="shot-desktop">
+              <img src="images/aiprogram-portal-desktop.jpg" alt="Kundeportalen" loading="lazy" />
+            </div>
+            <div class="card-body">
+              <div>
+                <h3>Kundeportalen</h3>
+                <p>Fremdrift, neste leksjon, live-økt og AI-analyse.</p>
+                <div class="links">
+                  <a href="images/aiprogram-portal-desktop.jpg" target="_blank">Åpne hele bildet</a>
+                  <a href="images/aiprogram-portal-mobil.jpg" target="_blank">Mobil</a>
+                </div>
+              </div>
+              <div class="phone"><img src="images/aiprogram-portal-mobil.jpg" alt="Portal mobil" loading="lazy" /></div>
+            </div>
+          </article>
+        </div>
+        <div class="divider"></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <p>
+          <strong>AIChat Norge AS</strong> · Org.nr 933 851 222 MVA · Kun B2B.
+          <br />
+          Previewet er statisk. Full app: Next.js 16, PostgreSQL, Stripe/Vipps, Resend og Opper.
+          Deployes på Railway fra GitHub-repoene over. Se <code>DEPLOY.md</code> i hvert repo.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
